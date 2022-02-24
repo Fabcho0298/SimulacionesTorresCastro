@@ -17,7 +17,7 @@ namespace SimulacionesTorresCastro.Models
         Task UpdateMachineAsync(string id, Machine machine);
     }
 
-    public class CosmosDBServiceMachine
+    public class CosmosDBServiceMachine : ICosmosDBServiceMachine
     {
         private Container _container;
 

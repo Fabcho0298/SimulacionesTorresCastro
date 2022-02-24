@@ -1,0 +1,63 @@
+﻿@model SimulacionesTorresCastro.Models.Machine
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Machine</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditMachine">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="id" class="control-label"></label>
+                <input asp-for="id" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="amountProductManufacturedPerHour" class="control-label"></label>
+                <input asp-for="amountProductManufacturedPerHour" class="form-control" />
+                <span asp-validation-for="amountProductManufacturedPerHour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="costPerHour" class="control-label"></label>
+                <input asp-for="costPerHour" class="form-control" />
+                <span asp-validation-for="costPerHour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="probabilityToFail" class="control-label"></label>
+                <input asp-for="probabilityToFail" class="form-control" />
+                <span asp-validation-for="probabilityToFail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="amountHoursToBeFixed" class="control-label"></label>
+                <input asp-for="amountHoursToBeFixed" class="form-control" />
+                <span asp-validation-for="amountHoursToBeFixed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="functionalState" class="control-label"></label>
+                <input asp-for="functionalState" class="form-control" />
+                <span asp-validation-for="functionalState" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="purchaseDate" class="control-label"></label>
+                <input asp-for="purchaseDate" class="form-control" />
+                <span asp-validation-for="purchaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Machines">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

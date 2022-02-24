@@ -9,7 +9,7 @@ namespace SimulacionesTorresCastro.Models
     public class Machine
     {
         [JsonProperty(PropertyName = "id")]
-        public int id { get; set; }
+        public string id { get; set; }
 
         //[JsonProperty(PropertyName = "product")]
         //public Product product { get; set; }

@@ -16,7 +16,7 @@ namespace SimulacionesTorresCastro.Models
         Task UpdateProductAsync(string id, Product product);
     }
 
-    public class CosmosDBServiceProduct
+    public class CosmosDBServiceProduct : ICosmosDBServiceProduct
     {
         private Container _container;
 
@@ -61,7 +61,7 @@ namespace SimulacionesTorresCastro.Models
             await this._container.DeleteItemAsync<Product>(id, new PartitionKey(id));
         }
 
-        public async Task UpdateProductoAsync(string id, Product product)
+        public async Task UpdateProductAsync(string id, Product product)
         {
             await this._container.UpsertItemAsync<Product>(product, new PartitionKey(id));
         }

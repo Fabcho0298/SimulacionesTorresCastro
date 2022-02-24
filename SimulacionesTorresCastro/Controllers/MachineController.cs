@@ -16,16 +16,16 @@ namespace SimulacionesTorresCastro.Controllers
             this._cosmosDbService = cosmosDBService;
         }
 
-        public async Task<ActionResult> Machine()
+        public async Task<ActionResult> Machines()
         {
             return View((await _cosmosDbService.GetMachinesAsync("SELECT * FROM machine")).ToList());
         }
 
         public async Task<ActionResult> CreateMachine(Machine machine)
         {
-            machine.id = Convert.ToInt32(Guid.NewGuid());
+            machine.id = Guid.NewGuid().ToString();
             await this._cosmosDbService.AddMachineAsync(machine);
-            return RedirectToAction("Machine");
+            return RedirectToAction("Machines");
         }
 
         public IActionResult Create()
@@ -35,8 +35,8 @@ namespace SimulacionesTorresCastro.Controllers
 
         public async Task<ActionResult> EditMachine(Machine machine)
         {
-            await this._cosmosDbService.UpdateMachineAsync(machine.id.ToString(), machine);
-            return RedirectToAction("Machine");
+            await this._cosmosDbService.UpdateMachineAsync(machine.id, machine);
+            return RedirectToAction("Machines");
         }
         public IActionResult Edit(Machine machine)
         {
@@ -45,8 +45,8 @@ namespace SimulacionesTorresCastro.Controllers
 
         public async Task<ActionResult> DeleteMachine(Machine machine)
         {
-            await _cosmosDbService.DeleteMachineAsync(machine.id.ToString());
-            return RedirectToAction("Machine");
+            await _cosmosDbService.DeleteMachineAsync(machine.id);
+            return RedirectToAction("Machines");
         }
 
         public ActionResult Delete(Machine machine)

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SimulacionesTorresCastro.Models.Machine>
+
+@{
+    ViewData["Title"] = "Machines";
+}
+
+<h1>Machines</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.amountProductManufacturedPerHour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.costPerHour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.probabilityToFail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.amountHoursToBeFixed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.functionalState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.purchaseDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.amountProductManufacturedPerHour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.costPerHour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.probabilityToFail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.amountHoursToBeFixed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.functionalState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.purchaseDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", item) |
+                @Html.ActionLink("Delete", "Delete", item)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

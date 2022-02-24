@@ -25,11 +25,11 @@ namespace SimulacionesTorresCastro
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<ICosmosDBServiceMachine>((ICosmosDBServiceMachine)InitializeCosmosClientInstanceMAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
-            services.AddSingleton<ICosmosDBServiceProduct>((ICosmosDBServiceProduct)InitializeCosmosClientInstancePAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
+            services.AddSingleton<ICosmosDBServiceMachine>(InitializeCosmosClientInstanceMachineAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
+            services.AddSingleton<ICosmosDBServiceProduct>(InitializeCosmosClientInstanceProductAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
         }
 
-        public static async Task<CosmosDBServiceMachine> InitializeCosmosClientInstanceMAsync(IConfigurationSection configurationSection)
+        public static async Task<CosmosDBServiceMachine> InitializeCosmosClientInstanceMachineAsync(IConfigurationSection configurationSection)
         {
             string databaseName = configurationSection.GetSection("DatabaseName").Value;
             string containerName = configurationSection.GetSection("ContainerNameMachine").Value;
@@ -42,7 +42,7 @@ namespace SimulacionesTorresCastro
 
             return cosmosDBService;
         }
-        public static async Task<CosmosDBServiceProduct> InitializeCosmosClientInstancePAsync(IConfigurationSection configurationSection)
+        public static async Task<CosmosDBServiceProduct> InitializeCosmosClientInstanceProductAsync(IConfigurationSection configurationSection)
         {
             string databaseName = configurationSection.GetSection("DatabaseName").Value;
             string containerName = configurationSection.GetSection("ContainerNameProduct").Value;

@@ -17,16 +17,16 @@ namespace SimulacionesTorresCastro.Controllers
             this._cosmosDbService = cosmosDBService;
         }
 
-        public async Task<ActionResult> Product()
+        public async Task<ActionResult> Products()
         {
             return View((await _cosmosDbService.GetProductsAsync("SELECT * FROM product")).ToList());
         }
 
         public async Task<ActionResult> CreateProduct(Product product)
         {
-            product.id = Convert.ToInt32(Guid.NewGuid());
+            product.id = Guid.NewGuid().ToString();
             await this._cosmosDbService.AddProductAsync(product);
-            return RedirectToAction("Product");
+            return RedirectToAction("Products");
         }
 
         public IActionResult Create()
@@ -36,8 +36,8 @@ namespace SimulacionesTorresCastro.Controllers
 
         public async Task<ActionResult> EditProduct(Product product)
         {
-            await this._cosmosDbService.UpdateProductAsync(product.id.ToString(), product);
-            return RedirectToAction("Product");
+            await this._cosmosDbService.UpdateProductAsync(product.id, product);
+            return RedirectToAction("Products");
         }
         public IActionResult Edit(Product product)
         {
@@ -46,8 +46,8 @@ namespace SimulacionesTorresCastro.Controllers
 
         public async Task<ActionResult> DeleteProduct(Product product)
         {
-            await _cosmosDbService.DeleteProductAsync(product.id.ToString());
-            return RedirectToAction("Product");
+            await _cosmosDbService.DeleteProductAsync(product.id);
+            return RedirectToAction("Products");
         }
 
         public ActionResult Delete(Product product)

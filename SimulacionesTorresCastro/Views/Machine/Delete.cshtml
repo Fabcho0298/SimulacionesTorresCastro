@@ -1,0 +1,67 @@
+﻿@model SimulacionesTorresCastro.Models.Machine
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Machine</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.amountProductManufacturedPerHour)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.amountProductManufacturedPerHour)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.costPerHour)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.costPerHour)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.probabilityToFail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.probabilityToFail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.amountHoursToBeFixed)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.amountHoursToBeFixed)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.functionalState)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.functionalState)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.purchaseDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.purchaseDate)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteMachine">
+        <div class="form-group d-none">
+            <label asp-for="id" class="control-label"></label>
+            <input asp-for="id" class="form-control" readonly="readonly" />
+            <span asp-validation-for="id" class="text-danger"></span>
+        </div>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Machines">Back to List</a>
+    </form>
+</div>
