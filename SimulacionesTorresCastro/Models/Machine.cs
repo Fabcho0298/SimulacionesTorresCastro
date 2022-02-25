@@ -11,8 +11,8 @@ namespace SimulacionesTorresCastro.Models
         [JsonProperty(PropertyName = "id")]
         public string id { get; set; }
 
-        //[JsonProperty(PropertyName = "product")]
-        //public Product product { get; set; }
+        [JsonProperty(PropertyName = "description")]
+        public string description { get; set; }
 
         [JsonProperty(PropertyName = "amountProductManufacturedPerHour")]
         public double amountProductManufacturedPerHour { get; set; }

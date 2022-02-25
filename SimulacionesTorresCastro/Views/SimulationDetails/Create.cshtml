@@ -1,0 +1,63 @@
+﻿@model SimulacionesTorresCastro.Models.Simulation
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>SimulationDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateSimulation">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.simulationDetails.idMaquina1" class="control-label"></label>
+                @Html.DropDownListFor(x => Model.simulationDetails.idMaquina1, new SelectList(Model.simulationMachines, "id", "description"), htmlAttributes: new { @class = "form-control", id = "id" })
+                <span asp-validation-for="@Model.simulationDetails.idMaquina1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.simulationDetails.idMaquina2" class="control-label"></label>
+                @Html.DropDownListFor(x => Model.simulationDetails.idMaquina2, new SelectList(Model.simulationMachines, "id", "description"), htmlAttributes: new { @class = "form-control", id = "id" })
+                <span asp-validation-for="@Model.simulationDetails.idMaquina2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.simulationDetails.product" class="control-label"></label>
+                @Html.DropDownListFor(x => Model.simulationDetails.product, new SelectList(Model.simulationProducts, "id", "name"), htmlAttributes: new { @class = "form-control", id = "id" })
+                <span asp-validation-for="@Model.simulationDetails.product" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.simulationDetails.productManufacturePrice" class="control-label"></label>
+                <input asp-for="@Model.simulationDetails.productManufacturePrice" class="form-control" />
+                <span asp-validation-for="@Model.simulationDetails.productManufacturePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.simulationDetails.amountHoursPerDay" class="control-label"></label>
+                <input asp-for="@Model.simulationDetails.amountHoursPerDay" class="form-control" />
+                <span asp-validation-for="@Model.simulationDetails.amountHoursPerDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.simulationDetails.amountDaysPerWeek" class="control-label"></label>
+                <input asp-for="@Model.simulationDetails.amountDaysPerWeek" class="form-control" />
+                <span asp-validation-for="@Model.simulationDetails.amountDaysPerWeek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.simulationDetails.amountContinuousProduction" class="control-label"></label>
+                <input asp-for="@Model.simulationDetails.amountContinuousProduction" class="form-control" />
+                <span asp-validation-for="@Model.simulationDetails.amountContinuousProduction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to home</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

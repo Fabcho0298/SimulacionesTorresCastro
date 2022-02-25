@@ -24,6 +24,7 @@ namespace SimulacionesTorresCastro.Controllers
         public async Task<ActionResult> CreateMachine(Machine machine)
         {
             machine.id = Guid.NewGuid().ToString();
+            machine.probabilityToFail = (new Random().Next(1, 11) / 10.00);
             await this._cosmosDbService.AddMachineAsync(machine);
             return RedirectToAction("Machines");
         }

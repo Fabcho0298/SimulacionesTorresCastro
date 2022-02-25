@@ -13,6 +13,11 @@
         <form asp-action="CreateMachine">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="description" class="control-label"></label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="amountProductManufacturedPerHour" class="control-label"></label>
                 <input asp-for="amountProductManufacturedPerHour" class="form-control" />
                 <span asp-validation-for="amountProductManufacturedPerHour" class="text-danger"></span>
@@ -21,11 +26,6 @@
                 <label asp-for="costPerHour" class="control-label"></label>
                 <input asp-for="costPerHour" class="form-control" />
                 <span asp-validation-for="costPerHour" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="probabilityToFail" class="control-label"></label>
-                <input asp-for="probabilityToFail" class="form-control" />
-                <span asp-validation-for="probabilityToFail" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="amountHoursToBeFixed" class="control-label"></label>

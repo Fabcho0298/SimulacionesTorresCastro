@@ -12,5 +12,28 @@ namespace SimulacionesTorresCastro.Controllers
         {
             return View();
         }
+
+        public IActionResult ButtonPress(string button)
+        {
+            if (!string.IsNullOrEmpty(button))
+            {
+                if (button.Equals("Machines"))
+                {
+                    return RedirectToAction("Machines", "Machine");
+                }
+
+                else
+                {
+                    return RedirectToAction("Products", "Product");
+                }
+            }
+
+            else
+            {
+
+                return RedirectToAction("MachinesConfig");
+            }
+
+        }
     }
 }

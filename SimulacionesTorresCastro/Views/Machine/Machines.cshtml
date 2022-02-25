@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.id)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.amountProductManufacturedPerHour)
             </th>
             <th>
@@ -41,6 +44,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.amountProductManufacturedPerHour)
