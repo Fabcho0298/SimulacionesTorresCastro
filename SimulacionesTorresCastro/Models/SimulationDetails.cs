@@ -24,6 +24,8 @@ namespace SimulacionesTorresCastro.Models
         public int amountContinuousProduction { get; set; }
         [JsonProperty(PropertyName = "product")]
         public string product { get; set; }
+        [JsonProperty(PropertyName = "typeProduction")]
+        public string typeProduction { get; set; }
 
     }
 }
