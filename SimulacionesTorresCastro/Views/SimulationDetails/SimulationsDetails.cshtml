@@ -72,9 +72,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.typeProduction)
             </td>
-            @*<td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })
-            </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", item) |
+                @Html.ActionLink("Delete", "Delete", item)
+            </td>
         </tr>
 }
     </tbody>

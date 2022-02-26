@@ -23,96 +23,107 @@ namespace SimulacionesTorresCastro.Controllers
             this._cosmosDbServiceResults = cosmosDBServiceResults;
         }
 
+        public IActionResult SimulationExecutionError()
+        {
+            return View();
+        }
+
         public IActionResult SimulationExecution()
         {
 
-            IEnumerable<SimulationDetails> simulationDetails = this._cosmosDbServiceSimulationDetails.GetSimulationsDetailsAsync("SELECT * FROM simulation").Result;
-
-            var lastSimulationDetails = simulationDetails.ToList().Last();
-
-            #region Real machines hours to production
-
-            int contadorDiaDeLaSemana = 0;
-            int diasRealesDeProduccion = 0;
-            int horasRealesDeProduccion = 0;
-
-
-            if (lastSimulationDetails.typeProduction == "Day")
+            try
             {
+                IEnumerable<SimulationDetails> simulationDetails = this._cosmosDbServiceSimulationDetails.GetSimulationsDetailsAsync("SELECT * FROM simulation").Result;
 
-                for (int i = 1; i <= lastSimulationDetails.amountContinuousProduction; i++)
+                var lastSimulationDetails = simulationDetails.ToList().Last();
+
+                #region Real machines hours to production
+
+                int countDayOfWeek = 0;
+                int realDaysProduction = 0;
+                int realHoursProduction = 0;
+
+
+                if (lastSimulationDetails.typeProduction == "Day")
                 {
-                    if (contadorDiaDeLaSemana == 7)
+
+                    for (int i = 1; i <= lastSimulationDetails.amountContinuousProduction; i++)
                     {
-                        contadorDiaDeLaSemana = 0;
-                    }
-                    else
-                    {
-                        if (contadorDiaDeLaSemana < lastSimulationDetails.amountDaysPerWeek)
+                        if (countDayOfWeek == 7)
                         {
-                            diasRealesDeProduccion++;
+                            countDayOfWeek = 0;
                         }
-                        contadorDiaDeLaSemana++;
+                        else
+                        {
+                            if (countDayOfWeek < lastSimulationDetails.amountDaysPerWeek)
+                            {
+                                realDaysProduction++;
+                            }
+                            countDayOfWeek++;
+                        }
                     }
+
+                    realHoursProduction = realDaysProduction * lastSimulationDetails.amountHoursPerDay;
+
                 }
 
-                horasRealesDeProduccion = diasRealesDeProduccion * lastSimulationDetails.amountHoursPerDay;
-
-            }
-
-            else
-            {
-                int diasSimulacion = lastSimulationDetails.typeProduction == "Week"
-                                        ? lastSimulationDetails.amountContinuousProduction * 7
-                                        : (int)(lastSimulationDetails.amountContinuousProduction * 30.417);
-
-                for (int i = 1; i <= diasSimulacion; i++)
+                else
                 {
-                    if (contadorDiaDeLaSemana == 7)
+                    int simulationDays = lastSimulationDetails.typeProduction == "Week"
+                                            ? lastSimulationDetails.amountContinuousProduction * 7
+                                            : (int)(lastSimulationDetails.amountContinuousProduction * 30.417);
+
+                    for (int i = 1; i <= simulationDays; i++)
                     {
-                        contadorDiaDeLaSemana = 0;
-                    }
-                    else
-                    {
-                        if (contadorDiaDeLaSemana < lastSimulationDetails.amountDaysPerWeek)
+                        if (countDayOfWeek == 7)
                         {
-                            diasRealesDeProduccion++;
+                            countDayOfWeek = 0;
                         }
-                        contadorDiaDeLaSemana++;
+                        else
+                        {
+                            if (countDayOfWeek < lastSimulationDetails.amountDaysPerWeek)
+                            {
+                                realDaysProduction++;
+                            }
+                            countDayOfWeek++;
+                        }
                     }
+
+                    realHoursProduction = realDaysProduction * lastSimulationDetails.amountHoursPerDay;
                 }
 
-                horasRealesDeProduccion = diasRealesDeProduccion * lastSimulationDetails.amountHoursPerDay;
+                //Results calculation
+
+                Machine machineOne = this._cosmosDbServiceMachine.GetMachineAsync(lastSimulationDetails.idMaquina1).Result;
+                Machine machineTwo = this._cosmosDbServiceMachine.GetMachineAsync(lastSimulationDetails.idMaquina2).Result;
+
+                Product product = this._cosmosDbServiceProduct.GetProductAsync(lastSimulationDetails.product).Result;
+
+                Results result = new Results();
+
+                //Machine 1
+
+                result.totalConstructedProductsMachine1 = (int)(machineOne.amountProductManufacturedPerHour * realHoursProduction);
+                result.grossTotalProfitMachine1 = result.totalConstructedProductsMachine1 * product.price;
+                result.realSimulationProfitMachine1 = (result.grossTotalProfitMachine1 - (lastSimulationDetails.productManufacturePrice * result.totalConstructedProductsMachine1) - (machineOne.costPerHour * realHoursProduction));
+
+                //Machine 2
+
+                result.totalConstructedProductsMachine2 = (int)(machineTwo.amountProductManufacturedPerHour * realHoursProduction);
+                result.grossTotalProfitMachine2 = result.totalConstructedProductsMachine2 * product.price;
+                result.realSimulationProfitMachine2 = (result.grossTotalProfitMachine2 - (lastSimulationDetails.productManufacturePrice * result.totalConstructedProductsMachine2) - (machineTwo.costPerHour * realHoursProduction));
+
+                this._cosmosDbServiceResults.AddResultAsync(result);
+
+                #endregion
+
+                return View();
             }
 
-            //Results calculation
-
-            Machine machineOne = this._cosmosDbServiceMachine.GetMachineAsync(lastSimulationDetails.idMaquina1).Result;
-            Machine machineTwo = this._cosmosDbServiceMachine.GetMachineAsync(lastSimulationDetails.idMaquina2).Result;
-
-            Product product = this._cosmosDbServiceProduct.GetProductAsync(lastSimulationDetails.product).Result;
-
-            Results result = new Results();
-
-            //Machine 1
-
-            result.totalConstructedProductsMachine1 = (int)(machineOne.amountProductManufacturedPerHour * horasRealesDeProduccion);
-            result.grossTotalProfitMachine1 = result.totalConstructedProductsMachine1 * product.price;
-            result.realSimulationProfitMachine1 = (result.grossTotalProfitMachine1 - (lastSimulationDetails.productManufacturePrice * result.totalConstructedProductsMachine1));
-
-            //Machine 2
-
-            result.totalConstructedProductsMachine2 = (int)(machineTwo.amountProductManufacturedPerHour * horasRealesDeProduccion);
-            result.grossTotalProfitMachine2 = result.totalConstructedProductsMachine2 * product.price;
-            result.realSimulationProfitMachine2 = (result.grossTotalProfitMachine2 - (lastSimulationDetails.productManufacturePrice * result.totalConstructedProductsMachine2));
-
-            this._cosmosDbServiceResults.AddResultAsync(result);
-
-            //await this._resultController.CreateResults(result);
-
-            #endregion
-
-            return View();
+            catch (Exception)
+            {
+                return RedirectToAction("SimulationExecutionError");
+            }
         }
     }
 }

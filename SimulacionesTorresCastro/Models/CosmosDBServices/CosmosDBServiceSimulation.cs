@@ -13,6 +13,8 @@ namespace SimulacionesTorresCastro.Models
         Task<SimulationDetails> GetSimulationDetailsAsync(string id);
         Task AddSimulationDetailsAsync(SimulationDetails simulation);
         Task UpdateSimulationDetailsAsync(string id, SimulationDetails simulation);
+        Task DeleteSimulationDetailsAsync(string id);
+
 
     }
 
@@ -59,6 +61,11 @@ namespace SimulacionesTorresCastro.Models
         public async Task UpdateSimulationDetailsAsync(string id, SimulationDetails simulation)
         {
             await this._container.UpsertItemAsync<SimulationDetails>(simulation, new PartitionKey(id));
+        }
+
+        public async Task DeleteSimulationDetailsAsync(string id)
+        {
+            await this._container.DeleteItemAsync<SimulationDetails>(id, new PartitionKey(id));
         }
     }
 }

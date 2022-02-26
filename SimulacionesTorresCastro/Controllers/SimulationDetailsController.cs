@@ -22,39 +22,66 @@ namespace SimulacionesTorresCastro.Controllers
 
         public async Task<ActionResult> SimulationsDetails()
         {
-            return View((await _cosmosDbServiceSimulationDetails.GetSimulationsDetailsAsync("SELECT * FROM simulation")).ToList());
+            try
+            {
+                return View((await _cosmosDbServiceSimulationDetails.GetSimulationsDetailsAsync("SELECT * FROM simulation")).ToList());
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("SimulationDetailsError");
+            }
+
         }
 
         public async Task<ActionResult> CreateSimulation(SimulationDetails simulationDetails)
         {
-            simulationDetails.id = Guid.NewGuid().ToString();
+            try
+            {
+                simulationDetails.id = Guid.NewGuid().ToString();
 
-            if (simulationDetails.idMaquina1 == simulationDetails.idMaquina2 ||
-                simulationDetails.productManufacturePrice < 0 ||
-                simulationDetails.amountHoursPerDay < 0 ||
-                simulationDetails.amountDaysPerWeek < 0 ||
-                simulationDetails.amountContinuousProduction < 0)
+                if (simulationDetails.idMaquina1 == simulationDetails.idMaquina2 ||
+                    simulationDetails.productManufacturePrice <= 0 ||
+                    simulationDetails.amountHoursPerDay <= 0 ||
+                    simulationDetails.amountDaysPerWeek <= 0 ||
+                    simulationDetails.amountContinuousProduction <= 0)
+                {
+                    return RedirectToAction("SimulationDetailsError");
+                }
+                else
+                {
+                    await this._cosmosDbServiceSimulationDetails.AddSimulationDetailsAsync(simulationDetails);
+                    return RedirectToAction("SimulationsDetails");
+                }
+            }
+            catch (Exception)
             {
                 return RedirectToAction("SimulationDetailsError");
-            }
-            else
-            {
-                await this._cosmosDbServiceSimulationDetails.AddSimulationDetailsAsync(simulationDetails);
-                return RedirectToAction("Index", "Home");
+
             }
         }
 
         public IActionResult Create()
         {
-            Simulation simulation = new Simulation();
 
-            IEnumerable<Product> products = this._cosmosDbServiceProduct.GetProductsAsync("SELECT * FROM product").Result;
-            simulation.simulationProducts = products;
+            try
+            {
+                Simulation simulation = new Simulation();
 
-            IEnumerable<Machine> machines = this._cosmosDbServiceMachine.GetMachinesAsync("SELECT * FROM machine").Result;
-            simulation.simulationMachines = machines;
+                IEnumerable<Product> products = this._cosmosDbServiceProduct.GetProductsAsync("SELECT * FROM product").Result;
+                simulation.simulationProducts = products;
 
-            return View(simulation);
+                IEnumerable<Machine> machines = this._cosmosDbServiceMachine.GetMachinesAsync("SELECT * FROM machine").Result;
+                simulation.simulationMachines = machines;
+
+                return View(simulation);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("SimulationDetailsError");
+            }
+
+
         }
 
         public IActionResult SimulationDetailsError()
@@ -64,12 +91,51 @@ namespace SimulacionesTorresCastro.Controllers
 
         public async Task<ActionResult> EditSimulationDetails(SimulationDetails simulationDetails)
         {
-            await this._cosmosDbServiceSimulationDetails.UpdateSimulationDetailsAsync(simulationDetails.id, simulationDetails);
-            return RedirectToAction("SimulationsDetails");
+            try
+            {
+                await this._cosmosDbServiceSimulationDetails.UpdateSimulationDetailsAsync(simulationDetails.id, simulationDetails);
+                return RedirectToAction("SimulationsDetails");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("SimulationDetailsError");
+            }
         }
         public IActionResult Edit(SimulationDetails simulationDetails)
         {
-            return View(simulationDetails);
+            try
+            {
+                return View(simulationDetails);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("SimulationDetailsError");
+            }
+        }
+
+        public async Task<ActionResult> DeleteSimulationDetails(SimulationDetails simulationDetails)
+        {
+            try
+            {
+                await _cosmosDbServiceSimulationDetails.DeleteSimulationDetailsAsync(simulationDetails.id);
+                return RedirectToAction("SimulationsDetails");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("SimulationDetailsError");
+            }
+        }
+
+        public ActionResult Delete(SimulationDetails simulationDetails)
+        {
+            try
+            {
+                return View(simulationDetails);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("SimulationDetailsError");
+            }
         }
 
     }

@@ -1,0 +1,79 @@
+﻿@model SimulacionesTorresCastro.Models.SimulationDetails
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SimulationDetails</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.idMaquina1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.idMaquina1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.idMaquina2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.idMaquina2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.amountHoursPerDay)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.amountHoursPerDay)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.amountDaysPerWeek)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.amountDaysPerWeek)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.productManufacturePrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.productManufacturePrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.amountContinuousProduction)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.amountContinuousProduction)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.product)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.product)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.typeProduction)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.typeProduction)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteSimulationDetails">
+        <div class="form-group d-none">
+            <label asp-for="id" class="control-label"></label>
+            <input asp-for="id" class="form-control" readonly="readonly" />
+            <span asp-validation-for="id" class="text-danger"></span>
+        </div>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="SimulationsDetails">Back to List</a>
+    </form>
+</div>

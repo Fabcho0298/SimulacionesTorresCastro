@@ -17,9 +17,21 @@ namespace SimulacionesTorresCastro.Controllers
             this._cosmosDbService = cosmosDBService;
         }
 
+        public IActionResult ResultsError()
+        {
+            return View();
+        }
+
         public async Task<ActionResult> Results()
         {
-            return View((await _cosmosDbService.GetResultsAsync("SELECT * FROM results")).ToList().Last());
+            try
+            {
+                return View((await _cosmosDbService.GetResultsAsync("SELECT * FROM results")).ToList().Last());
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("ResultsError");
+            }
         }
 
         public async Task<ActionResult> CreateResults(Results results)

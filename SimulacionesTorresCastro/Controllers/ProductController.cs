@@ -19,40 +19,104 @@ namespace SimulacionesTorresCastro.Controllers
 
         public async Task<ActionResult> Products()
         {
-            return View((await _cosmosDbService.GetProductsAsync("SELECT * FROM product")).ToList());
+            try
+            {
+                return View((await _cosmosDbService.GetProductsAsync("SELECT * FROM product")).ToList());
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("ProductError");
+            }
         }
 
         public async Task<ActionResult> CreateProduct(Product product)
         {
-            product.id = Guid.NewGuid().ToString();
-            await this._cosmosDbService.AddProductAsync(product);
-            return RedirectToAction("Products");
+            try
+            {
+                product.id = Guid.NewGuid().ToString();
+                await this._cosmosDbService.AddProductAsync(product);
+                return RedirectToAction("Products");
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("ProductError");
+            }
+
         }
 
         public IActionResult Create()
         {
-            return View();
+            try
+            {
+                return View();
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("ProductError");
+            }
+            
         }
 
         public async Task<ActionResult> EditProduct(Product product)
         {
-            await this._cosmosDbService.UpdateProductAsync(product.id, product);
-            return RedirectToAction("Products");
+            try
+            {
+                await this._cosmosDbService.UpdateProductAsync(product.id, product);
+                return RedirectToAction("Products");
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("ProductError");
+            }
+
         }
         public IActionResult Edit(Product product)
         {
-            return View(product);
+            try
+            {
+                return View(product);
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("ProductError");
+            }
         }
 
         public async Task<ActionResult> DeleteProduct(Product product)
         {
-            await _cosmosDbService.DeleteProductAsync(product.id);
-            return RedirectToAction("Products");
+            try
+            {
+                await _cosmosDbService.DeleteProductAsync(product.id);
+                return RedirectToAction("Products");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("ProductError");
+            }
+
         }
 
         public ActionResult Delete(Product product)
         {
-            return View(product);
+
+            try
+            {
+                return View(product);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("ProductError");
+            }
+        }
+
+
+        public IActionResult ProductError()
+        {
+            return View();
         }
 
     }

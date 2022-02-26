@@ -14,17 +14,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="id" class="control-label"></label>
-                <input asp-for="id" class="form-control" />
+                <input asp-for="id" class="form-control" readonly="readonly/>
                 <span asp-validation-for="id" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="idMaquina1" class="control-label"></label>
-                <input asp-for="idMaquina1" class="form-control" />
+                <input asp-for="idMaquina1" class="form-control" readonly="readonly" />
                 <span asp-validation-for="idMaquina1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="idMaquina2" class="control-label"></label>
-                <input asp-for="idMaquina2" class="form-control" />
+                <input asp-for="idMaquina2" class="form-control" readonly="readonly" />
                 <span asp-validation-for="idMaquina2" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,12 +49,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="product" class="control-label"></label>
-                <input asp-for="product" class="form-control" />
+                <input asp-for="product" class="form-control" readonly="readonly" />
                 <span asp-validation-for="product" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="typeProduction" class="control-label"></label>
-                <input asp-for="typeProduction" class="form-control" />
+                @Html.DropDownListFor(x => Model.typeProduction, new SelectList(new[] { "Day", "Week", "Month" }), htmlAttributes: new { @class = "form-control", id = "id" })
                 <span asp-validation-for="typeProduction" class="text-danger"></span>
             </div>
             <div class="form-group">
