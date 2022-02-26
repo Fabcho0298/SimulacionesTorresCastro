@@ -62,5 +62,15 @@ namespace SimulacionesTorresCastro.Controllers
             return View();
         }
 
+        public async Task<ActionResult> EditSimulationDetails(SimulationDetails simulationDetails)
+        {
+            await this._cosmosDbServiceSimulationDetails.UpdateSimulationDetailsAsync(simulationDetails.id, simulationDetails);
+            return RedirectToAction("SimulationsDetails");
+        }
+        public IActionResult Edit(SimulationDetails simulationDetails)
+        {
+            return View(simulationDetails);
+        }
+
     }
 }

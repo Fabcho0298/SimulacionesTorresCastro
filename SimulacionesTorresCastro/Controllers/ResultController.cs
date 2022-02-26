@@ -19,12 +19,11 @@ namespace SimulacionesTorresCastro.Controllers
 
         public async Task<ActionResult> Results()
         {
-            return View((await _cosmosDbService.GetResultsAsync("SELECT * FROM results")).ToList());
+            return View((await _cosmosDbService.GetResultsAsync("SELECT * FROM results")).ToList().Last());
         }
 
         public async Task<ActionResult> CreateResults(Results results)
         {
-            results.id = Guid.NewGuid().ToString();
             await this._cosmosDbService.AddResultAsync(results);
             return RedirectToAction("Index");
         }

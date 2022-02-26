@@ -12,6 +12,7 @@ namespace SimulacionesTorresCastro.Models
         Task<IEnumerable<SimulationDetails>> GetSimulationsDetailsAsync(string query);
         Task<SimulationDetails> GetSimulationDetailsAsync(string id);
         Task AddSimulationDetailsAsync(SimulationDetails simulation);
+        Task UpdateSimulationDetailsAsync(string id, SimulationDetails simulation);
 
     }
 
@@ -53,6 +54,11 @@ namespace SimulacionesTorresCastro.Models
         public async Task AddSimulationDetailsAsync(SimulationDetails simulation)
         {
             await this._container.CreateItemAsync<SimulationDetails>(simulation, new PartitionKey(simulation.id));
+        }
+
+        public async Task UpdateSimulationDetailsAsync(string id, SimulationDetails simulation)
+        {
+            await this._container.UpsertItemAsync<SimulationDetails>(simulation, new PartitionKey(id));
         }
     }
 }

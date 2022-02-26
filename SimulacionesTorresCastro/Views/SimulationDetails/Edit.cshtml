@@ -1,0 +1,73 @@
+﻿@model SimulacionesTorresCastro.Models.SimulationDetails
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>SimulationDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditSimulationDetails">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="id" class="control-label"></label>
+                <input asp-for="id" class="form-control" />
+                <span asp-validation-for="id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="idMaquina1" class="control-label"></label>
+                <input asp-for="idMaquina1" class="form-control" />
+                <span asp-validation-for="idMaquina1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="idMaquina2" class="control-label"></label>
+                <input asp-for="idMaquina2" class="form-control" />
+                <span asp-validation-for="idMaquina2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="amountHoursPerDay" class="control-label"></label>
+                <input asp-for="amountHoursPerDay" class="form-control" />
+                <span asp-validation-for="amountHoursPerDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="amountDaysPerWeek" class="control-label"></label>
+                <input asp-for="amountDaysPerWeek" class="form-control" />
+                <span asp-validation-for="amountDaysPerWeek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="productManufacturePrice" class="control-label"></label>
+                <input asp-for="productManufacturePrice" class="form-control" />
+                <span asp-validation-for="productManufacturePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="amountContinuousProduction" class="control-label"></label>
+                <input asp-for="amountContinuousProduction" class="form-control" />
+                <span asp-validation-for="amountContinuousProduction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="product" class="control-label"></label>
+                <input asp-for="product" class="form-control" />
+                <span asp-validation-for="product" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="typeProduction" class="control-label"></label>
+                <input asp-for="typeProduction" class="form-control" />
+                <span asp-validation-for="typeProduction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="SimulationsDetails">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

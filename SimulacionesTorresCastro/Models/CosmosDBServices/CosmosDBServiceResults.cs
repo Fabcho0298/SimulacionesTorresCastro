@@ -53,6 +53,7 @@ namespace SimulacionesTorresCastro.Models
 
         public async Task AddResultAsync(Results result)
         {
+            result.id = Guid.NewGuid().ToString();
             await this._container.CreateItemAsync<Results>(result, new PartitionKey(result.id));
         }
     }

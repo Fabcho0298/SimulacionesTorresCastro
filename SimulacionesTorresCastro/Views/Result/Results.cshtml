@@ -1,68 +1,59 @@
-﻿@model IEnumerable<SimulacionesTorresCastro.Models.Results>
+﻿@model SimulacionesTorresCastro.Models.Results
 
 @{
     ViewData["Title"] = "Results";
 }
 
-<h1>Results</h1>
+<div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.totalConstructedProductsMachine1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.totalConstructedProductsMachine2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.grossTotalProfitMachine1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.grossTotalProfitMachine2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.realSimulationProfitMachine1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.realSimulationProfitMachine2)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.totalConstructedProductsMachine1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.totalConstructedProductsMachine2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.grossTotalProfitMachine1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.grossTotalProfitMachine2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.realSimulationProfitMachine1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.realSimulationProfitMachine2)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <h1>Results of the last simulation</h1>
+        </thead>
+        <tbody>
+            <div class="container mt-1 mb-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <h1 class="card-header">Machine One</h1>
+                            <div class="card-text">
+                                <h5 class="card-title">Total Constructed Products: </h5>
+                                @Html.DisplayFor(model => model.totalConstructedProductsMachine1)
+                            </div>
+                            <div class="card-text">
+                                <h5 class="card-title">Gross total profit: </h5>
+                                @Html.DisplayFor(model => model.grossTotalProfitMachine1)
+                            </div>
+                            <div class="card-text">
+                                <h5 class="card-title">Real simulation profit: </h5>
+                                @Html.DisplayFor(model => model.realSimulationProfitMachine1)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mb-1">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <h1 class="card-header">Machine Two</h1>
+                            <div class="card-text">
+                                <h5 class="card-title">Total Constructed Products: </h5>
+                                @Html.DisplayFor(model => model.totalConstructedProductsMachine2)
+                            </div>
+                            <div class="card-text">
+                                <h5 class="card-title">Gross total profit: </h5>
+                                @Html.DisplayFor(model => model.grossTotalProfitMachine2)
+                            </div>
+                            <div class="card-text">
+                                <h5 class="card-title">Real simulation profit: </h5>
+                                @Html.DisplayFor(model => model.realSimulationProfitMachine2)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tbody>
+    </table>
+</div>
